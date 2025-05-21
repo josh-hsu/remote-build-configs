@@ -1,0 +1,39 @@
+
+load(":constraints.bzl",
+    "REMOTE_EXEC_CONSTRAINTS",
+    "REMOTE_TARGET_CONSTRAINTS_AMD64",
+    "REMOTE_TARGET_CONSTRAINTS_ARM64",
+)
+
+constraint_setting(
+    name = "container-image",
+    visibility = ["//visibility:public"],
+)
+
+constraint_value(
+    name = "bb-server-amd64-01",
+    constraint_setting = ":container-image",
+    visibility = ["//visibility:public"],
+)
+
+platform(
+    name = "amd64-exec-platform",
+    constraint_values = REMOTE_EXEC_CONSTRAINTS,
+    exec_properties = {
+        "container-image": "docker://bb-runner-am64",
+        "OSFamily": "linux",
+    },
+    visibility = ["//visibility:public"],
+)
+
+platform(
+    name = "target-linux-arm64",
+    constraint_values = REMOTE_TARGET_CONSTRAINTS_ARM64,
+    visibility = ["//visibility:public"],
+)
+
+platform(
+    name = "target-linux-amd64",
+    constraint_values = REMOTE_TARGET_CONSTRAINTS_AMD64,
+    visibility = ["//visibility:public"],
+)

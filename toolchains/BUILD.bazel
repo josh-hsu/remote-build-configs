@@ -1,0 +1,42 @@
+
+load("@remote_build_configs//platforms:constraints.bzl",
+    "REMOTE_EXEC_CONSTRAINTS",
+    "REMOTE_TARGET_CONSTRAINTS_AMD64",
+    "REMOTE_TARGET_CONSTRAINTS_ARM64",
+)
+
+toolchain(
+    name = "cc-toolchain-k8",
+    exec_compatible_with = REMOTE_EXEC_CONSTRAINTS,
+    target_compatible_with = REMOTE_TARGET_CONSTRAINTS_AMD64,
+    toolchain = "//toolchains/cc_configs:cc-compiler-k8",
+    toolchain_type = "@rules_cc//cc:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "cc-toolchain-k8-arm64",
+    exec_compatible_with = REMOTE_EXEC_CONSTRAINTS,
+    target_compatible_with = REMOTE_TARGET_CONSTRAINTS_ARM64,
+    toolchain = "//toolchains/cc_configs:cc-compiler-k8-arm64",
+    toolchain_type = "@rules_cc//cc:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+toolchain(
+    name = "cc-toolchain-armeabi-v7a",
+    exec_compatible_with = REMOTE_EXEC_CONSTRAINTS,
+    target_compatible_with = [
+        "@platforms//cpu:arm",
+        "@platforms//os:android",
+    ],
+    toolchain = "//toolchains/cc_configs:cc-compiler-armeabi-v7a",
+    toolchain_type = "@rules_cc//cc:toolchain_type",
+    visibility = ["//visibility:public"],
+)
+
+alias(
+    name = "all",
+    actual = ":cc-toolchain-k8-arm64",
+    visibility = ["//visibility:public"],
+)
