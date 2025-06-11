@@ -27,6 +27,16 @@ platform(
 )
 
 platform(
+    name = "cliff-amd64-exec-platform",
+    constraint_values = REMOTE_EXEC_CONSTRAINTS,
+    exec_properties = {
+        "container-image": "ghcr.io/catthehacker/ubuntu:act-22.04@sha256:5f9c35c25db1d51a8ddaae5c0ba8d3c163c5e9a4a6cc97acd409ac7eae239448",
+        "OSFamily": "linux",
+    },
+    visibility = ["//visibility:public"],
+)
+
+platform(
     name = "target-linux-arm64",
     constraint_values = REMOTE_TARGET_CONSTRAINTS_ARM64,
     visibility = ["//visibility:public"],
